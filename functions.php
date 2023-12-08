@@ -21,3 +21,8 @@ require_once( get_template_directory() . "/includes/loop.php" );      // Loop fu
 require_once( get_template_directory() . "/includes/comments.php" );  // Comment functions
 require_once( get_template_directory() . "/includes/core.php" ); 	  // Core functions
 require_once( get_template_directory() . "/includes/hooks.php" );     // Hooks
+
+
+add_filter( 'wp_mail_from', function() {
+    return 'abhijitkrm001@gmail.com';
+} );

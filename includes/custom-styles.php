@@ -243,7 +243,7 @@ a:hover, .entry-meta span a:hover,
 .continue-reading-link:before { background-color: <?php echo esc_html( $fluida_accent1 ); ?>}
 .continue-reading-link:hover { color: <?php echo esc_html( $fluida_contentbackground ) ?>; }
 
-header.pad-container						{ border-top-color: <?php echo esc_html( $fluida_accent1 ) ?>; }
+/*header.pad-container						{ border-top-color: <?php echo esc_html( $fluida_accent1 ) ?>; } */
 article.sticky:after 						{ background-color: rgba(<?php echo cryout_hex2rgb( esc_html( $fluida_accent1 ) ) ?>,1); }
 .socials a:before 							{ color: <?php echo esc_html( $fluida_accent1 ) ?>; }
 .socials a:hover:before 					{ color: <?php echo esc_html( $fluida_accent2 ) ?>; }
@@ -288,7 +288,7 @@ pre, .entry-meta .author, nav.sidebarmenu, .page-link > span, article #author-in
 .commentlist .comment-body, .commentlist .pingback, nav.sidebarmenu li a
 											{ border-color: <?php echo esc_html( cryout_hexdiff( $fluida_contentbackground, 17 ) ) ?>; }
 
-select, input[type], textarea 				{ color: <?php echo esc_html( $fluida_sitetext ); ?>; }
+select, input[type], textarea 				{ color: #fff; }
 button, input[type="button"], input[type="submit"], input[type="reset"]
 											{ background-color: <?php echo esc_html( $fluida_accent1 ) ?>;
 											  color: <?php echo esc_html( $fluida_contentbackground ) ?>; }
@@ -336,7 +336,7 @@ nav#mobile-menu 							{ background-color: <?php echo esc_html( $fluida_menuback
 .fluida-cropped-featured .main .post-thumbnail-container
 											{ height: <?php echo esc_html( $fluida_fheight ) ?>px; }
 .fluida-responsive-featured .main .post-thumbnail-container
-											{ max-height: <?php echo esc_html( $fluida_fheight ) ?>px; height: auto; }
+											{ max-height: 100%; height: auto; }
 <?php } ?>
 
 <?php

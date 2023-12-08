@@ -1,79 +1,3 @@
-/*
-Theme Name: Fluida
-Theme URI: http://www.cryoutcreations.eu/wordpress-themes/fluida
-Description: Fluida is a modern, crystal clear and squeaky clean theme. It shines bright with a fluid and responsive layout and carries under its hood a light and powerful framework. All the theme's graphics are created using HTML5, CSS3 and icon fonts so it's extremely fast to load. It's also SEO ready, using microformats and Google readable Schema.org microdata. Fluida also provides over 100 customizer theme settings that enable you to take full control of your site. You can change everything starting with layout (content and up to 2 sidebars), site and sidebar widths, colors, (Google) fonts and font sizes for all the important elements of your blog, featured images, post information metas, post excerpts, comments and much more. Fluida also features social menus with over 100 social network icons available in 4 locations, 3 menus, 6 widget areas, 8 page templates, all post formats, is translation ready, RTL and compatible with older browsers. If you want to take things further via a child theme you'll find clean code, either hookable or pluggable functions with clear descriptions and over 25 action hooks ready for action. Fluida - because solid is so overrated!
-Author: Cryout Creations
-Author URI: http://www.cryoutcreations.eu
-Version: 0.9.9.4
-License: GNU General Public License v3.0
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Tags: one-column, two-columns, three-columns, right-sidebar, left-sidebar, grid-layout, custom-background, custom-colors, custom-header, flexible-header, custom-menu, featured-image-header, featured-images, front-page-post-form, full-width-template, footer-widgets, microformats, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, e-commerce, news, entertainment, photography, portfolio
-Text Domain: fluida
-
-Fluida WordPress Theme - Copyright 2015, Cryout Creations - http://www.cryoutcreations.eu
-This theme, like WordPress, is licensed under the GPL.
-*/
-
-/*
---------------------------------------------------------------
-	== IMPORTANT ==
---------------------------------------------------------------
-
-Any changes made to this or any other of the theme's files will be lost at the next update.
-
-To safely make customizations to the theme:
-- for CSS-only use the theme's "Custom CSS" field or a CSS plugin;
-- for advanced CSS, layout changes and other customizations use a child theme;
-
---------------------------------------------------------------
-	== TABLE OF CONTENTS ==
---------------------------------------------------------------
-
-	# Reset CSS
-	# Theme specific defaults
-	# Layout
-	# Header
-		## Main menu
-		## Mobile menu
-	# Footer
-		## Footer menu
-		## Footer widget area
-	# Content
-		## Page titles
-		## Post metas
-		## Author info
-		## Articles
-		## Images
-		## Page navigation
-		## Article animation
-	# Post formats
-	# Comments
-		## Comment form
-	# Widget areas
-		## Main widget areas
-		## Before content and after content
-		## Left sidebar menu
-		## Callendar widget
-		## Tag cloud (normalized)
-	# Searchform
-	# Socials
-	# Miscellaneous
-		## Back to top
-		## Custom image border
-		## Custom captions
-		## Breadcrumbs
-		## Pagination
-		## Continue reading
-		## Blockquotes
-	# Conditionals
-	# Fixes
-
-
-/*--------------------------------------------------------------
-	# RESET CSS
---------------------------------------------------------------*/
-
-/* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -89,7 +13,8 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+  color:#fff;
+	font-size: 20px;
 	font: inherit;
 	/*vertical-align: baseline;*/
 }
@@ -97,7 +22,6 @@ time, mark, audio, video {
 html {
 	box-sizing: border-box;
 }
-
 *,
 *:before,
 *:after {
@@ -112,6 +36,9 @@ video {
 	vertical-align: baseline;
 }
 
+.destroy {
+	font-family: 'Racing Sans One', cursive;
+} 
 audio:not([controls]) {
 	display: none;
 	height: 0;
@@ -275,10 +202,6 @@ dl {
 }
 
 dt {
-	font-weight: bold;
-}
-
-strong {
 	font-weight: bold;
 }
 
@@ -454,7 +377,7 @@ body {
 .sidey {
 	display: block;
 	float: left;
-	padding: 2em;
+	padding: 1em;
 }
 
 #footer {
@@ -545,7 +468,7 @@ a#logo > img {
 #site-header-main-inside {
 	display: table;
 	width: 100%;
-	padding: 0 2%;
+	padding: 0 1%;
 }
 
 #masthead:after {
@@ -560,7 +483,7 @@ a#logo > img {
 .header-fixed .identity,
 .header-fixed #access div > ul > li > a {
 	height: 70px;
-	line-height: 70px;
+	/*line-height: 70px;*/
 }
 
 .header-fixed #branding {
@@ -662,14 +585,14 @@ a#logo > img {
 
 #access a {
 	display: block;
-	padding: 0 1.5em;
+	padding: 0 0.3em;
 	text-decoration: none;
 	line-height: 3.5;
 }
 
 #access a span {
 	display: block;
-	text-transform: uppercase;
+	text-transform: none;
 }
 
 #access > div ul li a:not([href]) { /* Default cursor for menu items with no link */
@@ -899,8 +822,7 @@ nav#mobile-menu > div > ul > li {
 	margin: .5em auto;
 	width: 100%;
 	max-width: 500px;
-	padding: 1em;
-	font-size: 1.3em;
+	font-size: 1em;
 	font-weight: bold;
 	line-height: 1.8;
 	text-align: center;
@@ -990,11 +912,11 @@ nav#smobile a {
 }
 
 #site-copyright {
+  color: #fff;
 	display: block;
 	float: left;
 	clear: left;
-	font-style: italic;
-	font-size: .9em;
+	font-size: 18px;;
 	/*line-height: 1.5;*/
 }
 
@@ -1158,7 +1080,7 @@ img#wpstats {
 
 .main ul,
 .main ol {
-	margin-left: 2em;
+	/*margin-left: 2em;*/
 }
 
 .main table {
@@ -1215,7 +1137,7 @@ img#wpstats {
 .fluida-magazine-two .entry-summary,
 .fluida-magazine-three .entry-content,
 .fluida-magazine-three .entry-summary {
-	padding-top: 1.3em;
+	padding-top: 0.3em;
 }
 
 .main .entry-summary p:last-child {
@@ -1284,7 +1206,7 @@ img#wpstats {
 	padding: .1em 0;
 	font-weight: 300;
 	line-height: 1.4;
-	word-wrap: break-word;
+	white-space: nowrap;
 }
 
 .entry-title a {
@@ -1302,7 +1224,7 @@ img#wpstats {
 
 .entry-title a:active,
 .entry-title a:hover {
-	border-bottom: 1px solid;
+	color:#ff0000;
 }
 
 .main .entry-title,
@@ -1315,11 +1237,14 @@ img#wpstats {
 --------------------------------------------------------------*/
 .entry-meta {
 	display: block;
+  color: #fff;
 	clear: both;
 	overflow: hidden;
 	margin: 0;
+  float: right;
 	padding: 0;
-	font-size: 1em;
+	font-size: 1.2em;
+  margin-right:10px;
 }
 
 .entry-meta .author {
@@ -1338,10 +1263,10 @@ img#wpstats {
 .entry-meta span,
 .entry-utility span {
 	display: block;
-	float: left;
+	float: right;
 	margin-right: 1em;
 	/*font-size: .9em;*/
-	line-height: 2;
+	/*line-height: 2; */
 }
 
 .entry-meta span a{
@@ -1469,16 +1394,6 @@ article #author-info {
 
 article.sticky {
 	position: relative;
-	padding-top: 5px;
-}
-
-article.sticky:after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 5px;
-	width: 100%;
-	content: "";
 }
 
 article.sticky .date {
@@ -1499,6 +1414,10 @@ article.hentry .article-inner {
 	padding: 2em;
 }
 
+article.hentry:hover {
+	
+}
+
 #content-masonry article.hentry {
 	display: block;
 	overflow: hidden;
@@ -1509,7 +1428,7 @@ article.hentry .article-inner {
 }
 
 #content-masonry article.hentry .article-inner {
-	padding: 1em 2em 2em;
+	padding: 1em 2em 0em;
 }
 
 .pad-container {
@@ -1817,7 +1736,6 @@ body .main .wp-caption > a {
 	display: block;
 	float: right;
 	position: relative;
-	clear: both;
 }
 
 #nav-below .nav-next a {
@@ -2486,8 +2404,8 @@ a.comment-edit-link:hover {}
 .widget-container ul li {
 	display: block;
 	float: none;
-	margin-bottom: 0.5em;
-	word-wrap: break-word;
+	margin-bottom: -10px;
+	white-space: nowrap;
 }
 
 .widget-title {
@@ -2945,7 +2863,7 @@ li.menu-footer-search .searchform .searchsubmit{
 	display: block;
 	width: 100%;
 	padding: .7em 0em;
-	font-size: .9em;
+	font-size: 20px;
 }
 
 .icon-homebread:before {
@@ -3120,3 +3038,657 @@ a.continue-reading-link:hover span:after {
 }
 
 /* FIN! */
+
+.animated-button.victoria-four{padding:5px;}
+
+a.animated-button.victoria-four {
+   border: 2px solid #c10000;
+   width:50%;
+   font-size:18px;
+   margin:10px;
+}
+a.animated-button.victoria-four:hover {
+  background-color:red;
+  color:white;
+}
+
+.showme{ 
+display: none;
+font-size:10px;
+transition-property: display;
+transition-duration: 3s;
+-webkit-transition-timing-function: ease-in-out;
+}
+.showhim:hover .showme{
+display : block;
+}
+
+.video-js {
+  font-size: 12px;
+  color: #ff0000;
+}
+
+.vjs-default-skin .vjs-big-play-button { 
+  font-size: 2em;
+  line-height: 1.5em;
+  height: 1.5em;
+  width: 3em;
+  border: 0.06666em solid #ff0000;
+  border-radius: 0.3em;
+  left: 50%;
+  top: 50%;
+  margin-left: -1.5em;
+  margin-top: -0.75em;
+}
+
+
+.video-js .vjs-control-bar,
+.video-js .vjs-big-play-button,
+.video-js .vjs-menu-button .vjs-menu-content {
+  /* IE8 - has no alpha support */
+  background-color: #000;
+  /* Opacity: 1.0 = 100%, 0.0 = 0% */
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Slider - used for Volume bar and Progress bar */
+.video-js .vjs-slider {
+  background-color: #ff0000;
+  background-color: rgba(84, 84, 84, 0.5);
+}
+
+/* The slider bar color is used for the progress bar and the volume bar
+   (the first two can be removed after a fix that's coming) */
+.video-js .vjs-volume-level,
+.video-js .vjs-play-progress,
+.video-js .vjs-slider-bar {
+  background: #ff0000;
+}
+
+/* The main progress bar also has a bar that shows how much has been loaded. */
+.video-js .vjs-load-progress {
+  /* For IE8 we'll lighten the color */
+  background: ligthen(#545454, 25%);
+  /* Otherwise we'll rely on stacked opacities */
+  background: rgba(84, 84, 84, 0.5);
+}
+
+/* The load progress bar also has internal divs that represent
+   smaller disconnected loaded time ranges */
+.video-js .vjs-load-progress div {
+  /* For IE8 we'll lighten the color */
+  background: ligthen(#545454, 50%);
+  /* Otherwise we'll rely on stacked opacities */
+  background: rgba(84, 84, 84, 0.75);
+}
+
+.wrapper_temp {
+position: relative;
+width: 100%;
+-webkit-transform: translateZ(0); /* webkit flicker fix */
+-webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.wrapper_temp .tooltip {
+font-family: "Open Sans Condensed";
+background: #fff;
+bottom: 150%;
+color: #000;
+display: block;
+left: 70px;
+margin-bottom: 15px;
+opacity: 0;
+padding: 20px;
+position: absolute;
+width: 75%;
+-webkit-transform: translate(150px,100px);
+  -moz-transform: translate(150px,100px);
+  -ms-transform: translate(150px,100px);
+   -o-transform: translate(150px,100px);
+    transform: translate(150px,100px);
+-webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+   -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+  -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+   -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper_temp .tooltip:before {
+bottom: -20px;
+content: " ";
+display: block;
+height: 20px;
+left: 0;
+position: absolute;
+width: 100%;
+}
+
+/* CSS Triangles - see Trevor's post */
+.wrapper_temp .tooltip:after {
+border-left: solid transparent 10px;
+border-right: solid transparent 10px;
+border-top: solid #fff 10px;
+bottom: 25px;
+content: " ";
+height: 0;
+left: 0%;
+margin-left: -13px;
+position: absolute;
+transform:rotate(90deg);
+}
+
+.wrapper_temp:hover .tooltip {
+opacity: 1;
+pointer-events: auto;
+-webkit-transform: translate(150px,100px);
+  -moz-transform: translate(150px,100px);
+  -ms-transform: translate(150px,100px);
+   -o-transform: translate(150px,100px);
+    transform: translate(150px,100px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .wrapper_temp .tooltip {
+display: none;
+}
+
+.lte8 .wrapper_temp:hover .tooltip {
+display: block;
+}
+.tooltip > strong {
+color:#000; 
+font-weight:bold;
+}
+
+@media screen and (max-width:480px) {
+  .wrapper_temp .tooltip {
+   width:35%; 
+   font-size:15px;
+  }  
+  #mcTagMap .tagDescription {
+   display:none;
+  }
+  #mcTagMap #mcTagMapNav a {
+  font-size:30px;
+}
+}
+@media screen and (max-width:700px) {
+  .wrapper_temp .tooltip {
+   width:45%; 
+   font-size:17px;
+  }  
+}
+@media screen and (max-width:900px) {
+  .wrapper_temp .tooltip {
+   width:55%; 
+  }  
+}
+
+.entry-content {
+text-align:left;
+}
+
+.temp > ul {
+ list-style:none; 
+}
+strong {
+font-weight: bold;
+}
+.wrapper_temp{
+  strong{
+    font-weight:none;}
+}
+body {
+ letter-spacing:0.5px;
+}
+
+h3.related_post_title {
+ font-size: 20px; 
+}
+#colophon {
+	display: none;
+}
+
+.center-wrap1 {
+	width: 150px;
+	height: 100px;
+}
+
+.button1 {
+	position: relative;
+	display: block;
+	background: none center center no-repeat;
+	background-size: cover;
+	border: 2px solid #FF0000;
+	text-transform: uppercase;
+	letter-spacing: .2rem;
+	padding: 10px 10px;
+	text-align: center;
+	max-width: 290px;
+	min-width: 250px;
+	cursor: pointer;
+	overflow: hidden;
+	-webkit-transition: border 1s cubic-bezier(0.19,1,.22,1),color .6s cubic-bezier(0.19,1,.22,1);
+	transition: border 1s cubic-bezier(0.19,1,.22,1), color .6s cubic-bezier(0.19,1,.22,1), background 5s cubic-bezier(0.19,1,.22,1);
+}
+
+.button1 a {
+	color: #ff0000;
+	font-family: 'Varela Round';
+	text-decoration: none;
+}
+
+.button1 .mask1 {
+	background: #fff;
+	background: RED;
+}
+
+.button1 .mask1 {
+	position: absolute;
+	display: block;
+	width: 200px;
+	height: 100px;
+	-webkit-transform: translate3d(-120%,-50px,0) rotate3d(0,0,1,45deg);
+	transform: translate3d(-120%,-50px,0) rotate3d(0,0,1,45deg);
+	-webkit-transition: all 1.1s cubic-bezier(0.19,1,.22,1);
+	transition: all 1.1s cubic-bezier(0.19,1,.22,1);
+}
+
+.button1 .shift1 {
+	-webkit-transition: all 1.1s cubic-bezier(0.19,1,.22,1);
+	transition: all 1.1s cubic-bezier(0.19,1,.22,1);
+}
+
+.button1:hover {
+	border-color: #FF0000;
+}
+
+.button1:hover a {
+	color: #ff0000;
+}
+
+.button1:hover .mask1 {
+	background: #fff;
+	-webkit-transform: translate3d(120%,-100px,0) rotate3d(0,0,1,90deg);
+	transform: translate3d(120%,-100px,0) rotate3d(0,0,1,90deg);
+}
+
+@media only screen and (max-width: 360px) {
+  .button1 {
+  	left: 28%;
+  }
+  .search1 {
+  	display: none;
+  }
+  .h-menu {
+  	right:2.5%;
+  }
+  .loaded {
+  top: 70%; 
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .button1 {
+  	left: 35%;
+  }
+  .search1 {
+  	display: none;
+  }
+  .h-menu {
+  	right:2.5%;
+  }
+  .loaded {
+  top: 70%; 
+  }
+  .entry-title h1 {
+  white-space:normal;
+  text-align:center;
+  }
+  .hentaitags {
+  text-align:center; 
+  }
+  .hentaitags span {
+    font-size:17px;
+  }
+}
+
+@media only screen and (min-width: 361px and max-width: 768px) {
+  .button1 {
+  	left: 35%;
+  }
+  .search1 {
+  	display: none;
+  }
+  .h-menu {
+  	right:2.5%;
+  }
+  .loaded {
+  top: 80%; 
+  }
+}
+.center-wrap1 {
+	height: 100px;
+}
+
+.close1{
+  position:absolute;
+  color:#ff0000;
+  top:15%;
+  right:50px;
+  font-size:1.7em;
+  cursor:pointer;
+  display:none;
+  z-index:999;
+  -webkit-transform:rotate(0deg);
+  transform:rotate(0deg);
+  -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition:         all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+}
+
+.close1:hover{
+  font-size:2.4em;
+  -webkit-transform:rotate(360deg);
+  transform:rotate(360deg);
+}
+.search1{
+  position:relative;
+  margin-top:3.7%;
+  left:97%;
+  -webkit-transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%);
+  border-radius:1000px;
+  width:0;
+  height:0;
+  background:#000;
+   -webkit-transition: all .4s linear;
+  transition:  all .4s linear;
+}
+
+.search1 i{
+  color:#ff0000;
+  font-size:1.7em;
+  cursor:pointer;
+}
+
+.search1 .input1{
+  position:absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%);
+  width:350px;
+  height:40px;
+  background:transparent;
+  border:none;
+  outline:none;
+  border-bottom:3px solid #ff0000;
+  color:#ff0000;
+  font-size:1.3em;
+  display:none;
+}
+
+
+.search1.open{
+  height:4000px;
+  width:4000px;
+  left:50%;
+}
+.h-menu {
+  position: absolute;
+  float: right;
+  -webkit-transition: box-shadow 0.2s, background 0.2s;
+  transition: box-shadow 0.2s, background 0.2s;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  margin-left: 220px;
+  margin-top: -60px;
+}
+
+.icn-h-menu {
+  position: relative;
+  top: 0.1875rem;
+}
+.icn-h-menu span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #ff0000;
+  position: absolute;
+  -webkit-transition: opacity 0.2s, width 0.2s, -webkit-transform 0.2s;
+  transition: opacity 0.2s, width 0.2s, -webkit-transform 0.2s;
+  transition: transform 0.2s, opacity 0.2s, width 0.2s;
+  transition: transform 0.2s, opacity 0.2s, width 0.2s, -webkit-transform 0.2s;
+}
+.icn-h-menu span.ihm-2 {
+  top: 0.5rem;
+}
+.icn-h-menu span.ihm-3 {
+  top: 1rem;
+}
+
+.h-menu.is-active .icn-h-menu .ihm-1 {
+  -webkit-transform: rotate(45deg) translate3d(0.375rem, 0.375rem, 0);
+          transform: rotate(45deg) translate3d(0.375rem, 0.375rem, 0);
+}
+.h-menu.is-active .icn-h-menu .ihm-2 {
+  -webkit-transform: translate3d(-1rem, 0, 0);
+          transform: translate3d(-1rem, 0, 0);
+  opacity: 0;
+}
+.h-menu.is-active .icn-h-menu .ihm-3 {
+  -webkit-transform: rotate(-45deg) translate3d(0.34375rem, -0.34375rem, 0);
+          transform: rotate(-45deg) translate3d(0.34375rem, -0.34375rem, 0);
+}
+
+#loader {
+  animation: loader 2s linear infinite;   
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+}
+@keyframes loader {
+  0% { left: -100px }
+  100% { left: 110%; }
+}
+#box {
+  width: 50px;
+  height: 50px;
+  background: #ff0000;
+  animation: animate .5s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 3px;
+}
+@keyframes animate {
+  17% { border-bottom-right-radius: 3px; }
+  25% { transform: translateY(9px) rotate(22.5deg); }
+  50% {
+    transform: translateY(18px) scale(1,.9) rotate(45deg) ;
+    border-bottom-right-radius: 40px;
+  }
+  75% { transform: translateY(9px) rotate(67.5deg); }
+  100% { transform: translateY(0) rotate(90deg); }
+} 
+#shadow { 
+  width: 50px;
+  height: 5px;
+  background: #000;
+  opacity: 0.1;
+  position: absolute;
+  top: 59px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow .5s linear infinite;
+}
+@keyframes shadow {
+  50% {
+    transform: scale(1.2,1);
+  }
+}
+
+@keyframes loader {
+  0%, 10%, 100% {
+    width: 80px;
+    height: 80px;
+  }
+  65% {
+    width: 150px;
+    height: 150px;
+  }
+}
+@keyframes loaderBlock {
+  0%, 30% {
+    transform: rotate(0);
+  }
+  55% {
+    background-color: #F37272;
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes loaderBlockInverse {
+  0%, 20% {
+    transform: rotate(0);
+  }
+  55% {
+    background-color: #F37272;
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+.loaded {
+  position: absolute;
+  top: 590px;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%) rotate(45deg) translate3d(0, 0, 0);
+  animation: loader 1.2s infinite ease-in-out;
+}
+.loaded span {
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: #FF0000;
+  animation: loaderBlock 1.2s infinite ease-in-out both;
+}
+.loaded span:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+.loaded span:nth-child(2) {
+  top: 0;
+  right: 0;
+  animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+}
+.loaded span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+}
+.loaded span:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}
+#hentaigod {
+ 	text-align:center;
+  margin-bottom:25px;
+}
+#wp_rp_first {
+	margin-top:75px;
+  border-top:2px solid #fff;
+  padding-top: 35px;
+  text-align: center;
+}
+h3.related_post_title {
+}
+#preloaders {
+    width: 100%;
+    height: 100%;
+}
+#loaders {
+    display: block;
+    position: absolute;
+    left: 40%;
+    top: 25%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #ff0000;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+#loaders:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #ff0000;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+#loaders:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF0000;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@media only screen and (max-width: 1400px) {
+	#loaders {
+  	top: 20%;
+    left:35%;
+  }
+}
+
+#container-playit {
+	margin-top:30px;
+}

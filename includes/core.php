@@ -64,9 +64,9 @@ function fluida_title_and_description() {
 		$heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div';
 		echo '<div id="site-text">';
 		echo '<' . $heading_tag . cryout_schema_microdata( 'site-title', 0 ) . ' id="site-title">';
-		echo '<span> <a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'description' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name' ) ) . '</a> </span>';
+		echo '<span> <a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'description' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name' ) ) . '</a></span>';
 		echo '</' . $heading_tag . '>';
-		echo '<span id="site-description" ' . cryout_schema_microdata( 'site-description', 0 ) . ' >' . esc_attr( get_bloginfo( 'description' ) ). '</span>';
+		echo '<span id="site-description" ' . cryout_schema_microdata( 'site-description', 0 ) . ' style="font-size:18px;">' .'<i class="fa fa-angle-right" aria-hidden="true" style="font-size:25px;"></i>&nbsp;'. esc_attr( get_bloginfo( 'description' ) ). '</span>';
 		echo '</div>';
 	}
 } // fluida_title_and_description()
@@ -144,10 +144,8 @@ function fluida_master_footer() {
 	$fluida_theme = wp_get_theme();
 	do_action( 'cryout_footer_hook' );
 	echo '<div id="site-copyright">' . wp_kses_post( cryout_get_option( 'fluida_copyright' ) ) . '</div>';
-	echo '<div style="display:block;float:right;clear: right;font-size: .9em;">' . __( "Powered by", "fluida" ) .
-		'<a target="_blank" href="' . esc_html( $fluida_theme->get( 'ThemeURI' ) ) . '" title="';
-	echo 'Fluida WordPress Theme by ' . 'Cryout Creations"> ' . 'Fluida' .'</a> &amp; <a target="_blank" href="' . "http://wordpress.org/";
-	echo '" title="' . __( "Semantic Personal Publishing Platform", "fluida") . '"> ' . sprintf( " %s.", "WordPress" ) . '</a></div>';
+	echo '<div style=" color:#fff;float:right;clear:right;font-size:18px;font-style: italic;">' . __( "Proudly Created, Designed and Presented By Projekt Freak!" );
+	echo '</div>';
 }
 
 /*
@@ -229,9 +227,9 @@ function fluida_breadcrumbs() {
 		'</nav></div></div></div><!-- breadcrumbs -->', 		// $wrapper_post
 		fluida_get_layout_class(),								// $layout_class
 		__( 'Home', 'fluida' ),									// $text_home
-		__( 'Archive for category', 'fluida' ),					// $text_archive
-		__( 'Search results for', 'fluida' ), 					// $text_search
-		__( 'Posts tagged', 'fluida' ), 						// $text_tag
+		__( 'Episodes In Hentai Anime', 'fluida' ),					// $text_archive
+		__( 'You Searched For Hentai With', 'fluida' ), 					// $text_search
+		__( 'Videos Drugged With', 'fluida' ), 						// $text_tag
 		__( 'Articles posted by', 'fluida' ), 					// $text_author
 		__( 'Not Found', 'fluida' ),							// $text_404
 		__( 'Post format', 'fluida' ),							// $text_format
@@ -295,5 +293,24 @@ function fluida_master_hook() {
 };
 endif;
 add_action( 'wp', 'fluida_master_hook' );
+
+add_action('init','random_post');
+function random_post() {
+       global $wp;
+       $wp->add_query_var('random');
+       add_rewrite_rule('random/?$', 'index.php?random=1', 'top');
+}
+ 
+add_action('template_redirect','random_template');
+function random_template() {
+       if (get_query_var('random') == 1) {
+               $posts = get_posts('post_type=post&orderby=rand&numberposts=1');
+               foreach($posts as $post) {
+                       $link = get_permalink($post);
+               }
+               wp_redirect($link,307);
+               exit;
+       }
+}
 
 /* FIN */

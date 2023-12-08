@@ -24,7 +24,7 @@ get_header(); ?>
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header pad-container" <?php cryout_schema_microdata( 'element' ); ?>>
-					<?php
+          <?php
 						// Load custom header if author
 						if (is_author()) {
 							get_template_part( 'content/author-bio' );	
@@ -32,6 +32,7 @@ get_header(); ?>
 						} else { 
 							the_archive_title( '<h1 class="page-title" ' . cryout_schema_microdata('entry-title', 0) . '>', '</h1>' );
 							the_archive_description( '<div class="taxonomy-description">', '</div>' );
+              
 						} 
 					?>
 				</header><!-- .page-header -->

@@ -17,7 +17,7 @@ get_header();?>
 				<div class="article-inner">
 					<header>
 						<?php cryout_post_title_hook(); ?>
-						<?php the_title( '<h1 class="entry-title" ' . cryout_schema_microdata('entry-title', 0) . 'style="font-size:35px;margin-left:10px;white-space:normal;margin-bottom:10px;">', '</h1>' ); ?> 
+						<?php the_title( '<h1 class="entry-title" ' . cryout_schema_microdata('entry-title', 0) . 'style="font-size:30px;margin-left:10px;white-space:normal;margin-bottom:10px;">', '</h1>' ); ?> 
                             <div class="entry-meta">
 							<?php cryout_post_meta_hook(); ?>
 						    </div><!-- .entry-meta -->
@@ -29,28 +29,22 @@ get_header();?>
                      <!-- Video Tags End -->
                      <div class="col-lg-12 text-center">
                         <div class="row">
-                            <div class="col-lg-9 col-md-9 col-xs-12">
-                                <br><?php the_content(); ?> 
-                               <div class="text-center" style="font-size:15px;"><em>Report Dead Links and Faulty Releases. For downloading, just right-click and save it.</em></div>
-                            
-                                <?php { if(!is_mobile()){ echo '<!--<a href="https://go.bshrdr.com/smartpop/21a2309031f84f238880f663ef1e01be5993a7582ef92088adbc70c3bef52d17?userId=6a6f07a6f50cc1e85498ebdcfb5a0be32dd24b3f466cb555d50f212fa7f40b82&sourceId=728x90hentainonnude"><img src="https://hentaifreak.org/wp-content/uploads/720x90-2.gif" /></a>-->'; } }?>
+                            <div class="col-lg-8 col-md-8 col-xs-12">
+                                <?php the_content(); ?>
                             </div> <!-- col-lg end -->
-                            <div class="col-lg-3 col-md-3 col-xs-12"> <br>
-                            <?php { if(is_mobile()){ 
-                            echo '<iframe width="300" height="150" scrolling="no" frameborder="0" src=https://a.adtng.com/get/10013428?time=1651519797837 allowtransparency="true" marginheight="0" marginwidth="0" name="spot_id_10013428"></iframe>
-'; 
+                            <div class="col-lg-4 col-md-4 col-xs-12"> 
+                            <!--<?php if(is_mobile()){ 
+                            echo '<iframe style="background-color: white;" width="300" height="100" scrolling="no" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" name="spot_id_10001817" src="//a.adtng.com/get/10001817?ata=adminzer0"></iframe>';
+                            else  {
+                            echo '<iframe style="background-color: white;" width="300" height="250" scrolling="no" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" name="spot_id_10001808" src="//a.adtng.com/get/10001808?ata=adminzer0"></iframe>';
                             }
-                            else {
-                            echo '<div style="margin-top:20%;"></div><iframe width="300" height="250" scrolling="no" frameborder="0" src=https://a.adtng.com/get/10013429?time=1651519799390 allowtransparency="true" marginheight="0" marginwidth="0" name="spot_id_10013429"></iframe><br><iframe width="300" height="250" scrolling="no" frameborder="0" src=https://a.adtng.com/get/10013429?time=1651519799390 allowtransparency="true" marginheight="0" marginwidth="0" name="spot_id_10013429"></iframe>';
-                            }}
-                            ?>
+				?> -->
                             </div> <!-- col-lg end -->
                         </div> <!-- row end -->
                     </div>
                     <hr>
-             <?php { if(!is_mobile()){ echo '<!--<br><div class="text-center"><iframe src="https://syndication.traffichaus.com/adserve/index.php?z=206265" height="360" width="920"></iframe></div>-->'; } }?>
-           
-                   <?php { if(is_mobile()){ echo '<!--<div class="text-center"><iframe src="https://syndication.traffichaus.com/adserve/index.php?z=206265" height="" width="920"></iframe></div>-->'; } }?>
+                    <div class="text-center" style="font-size:15px;"><em>Report Dead Links and Faulty Releases. For downloading, just right-click and save it.</em></div>
+              
                    <div style="font-size:18px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;margin-top:20px;"></div><br>
                    <div style="font-size:22px;">
                         <?php $category = get_the_category(); echo '<a style="color:red;float:left;" href="' . esc_url( get_category_link( $category[0]->term_id ) ) .  '"><span style="color:#fff;font-size:23px;">Series Name:</span>&nbsp;' . esc_html( $category[0]->name ) . '</a>'; echo '<a style="color:red;float:right;margin-right:25px;" href="' . esc_url( get_category_link( $category[0]->term_id ) ) .  '"><span style="color:#fff;font-size:23px;">Number of Episode(s):</span>&nbsp;' . esc_html( $category[0]->category_count ) . '</a><br>';?><br><div><?php $categories = get_the_category(); $category_id = $categories[0]->cat_ID; echo category_description( $category_id ); ?>
