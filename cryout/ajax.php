@@ -1,38 +1,39 @@
 <?php
 /**
  * Ajax read more homepage functionality
- * @since Cryout 0.5.1
+ *
+ * @package Cryout Framework
+ * @since Cryout Framework 0.5.1
 */
 
 if (! function_exists( 'cryout_ajax_init' ) ):
 function cryout_ajax_init() {
+	// loading theme structure identifiers
+	$identifiers = cryout_get_theme_structure( 'theme_identifiers' );
 	// loading theme settings
 	$options = cryout_get_option( array(
-		_CRYOUT_THEME_NAME . '_frontpage',
-		_CRYOUT_THEME_NAME . '_frontpostscount'
+		_CRYOUT_THEME_PREFIX . '_landingpage',
+		_CRYOUT_THEME_PREFIX . '_lppostscount'
 	) );
-	
-	if( is_front_page() && cryout_is_true( $options[_CRYOUT_THEME_NAME . '_frontpage'] ) ) {  
+
+	if ( cryout_on_landingpage() ) {
 		$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-		$the_query = new WP_Query( 
-				array( 'posts_per_page' => $options[_CRYOUT_THEME_NAME . '_frontpostscount'], 'paged' => $paged ) 
-				); 
-	} /*
-	elseif ( is_page_template('templates/template-blog.php') ) {
-		$the_query = new WP_Query( 'post_status=publish&orderby=date&order=desc&posts_per_page='.get_option('posts_per_page'));
-	}
-	elseif ( is_home() ) {
-		global $wp_query;
-		$the_query = $wp_query;
-	} */
-	else {
+		$the_query = new WP_Query(
+			apply_filters( 'cryout_landingpage_indexquery', 
+				array( 
+					'posts_per_page' => $options[ _CRYOUT_THEME_PREFIX . '_lppostscount'], 
+					'paged' => $paged 
+				)
+			)
+		);
+	} else {
 		return;
 	}
-	
-	// enqueue js 
+
+	// enqueue js
 	wp_enqueue_script(
 		'cryout_ajax_more',
-		get_template_directory_uri(). '/cryout/js/ajax.js',
+		get_template_directory_uri(). '/resources/js/ajax.js',
 		array('jquery'),
 		_CRYOUT_THEME_VERSION,
 		true
@@ -52,46 +53,14 @@ function cryout_ajax_init() {
 			'page_number_next' => $page_number_next,
 			'page_number_max' => $page_number_max,
 			'page_link_model' => get_pagenum_link(9999999),
-			'load_more_str' => __('More posts', 'cryout'),
-			'content_css_selector' => '#content',
-			'pagination_css_selector' =>  '.pagination, .navigation',
+			'load_more_str' => cryout_get_option( $identifiers['load_more_optid'] ),
+			'content_css_selector' => $identifiers['content_css_selector'],
+			'pagination_css_selector' =>  $identifiers['pagination_css_selector'],
 		)
 	);
 } // cryout_ajax_init()
-endif; 
-
-if ( ! function_exists( 'cryout_query_offset' ) ):
-function cryout_query_offset(&$query) {
-
-	$options = cryout_get_option( array(
-		_CRYOUT_THEME_NAME . '_frontpage',
-		_CRYOUT_THEME_NAME . '_frontpostscount'
-	) );
-
-	if ( !is_front_page() || !cryout_is_true($options[_CRYOUT_THEME_NAME . '_frontpage']) )  {
-		return;
-	}
-
-    //Determine how many posts per page you want (we'll use WordPress's settings)
-    $ppp = $options[_CRYOUT_THEME_NAME . '_frontpostscount'];
-
-    //Detect and handle pagination...
-    if ( $query->is_paged ) {
-
-        //Manually determine page query offset (offset + current page (minus one) x posts per page)
-        $page_offset =  ($query->query_vars['paged']-1) * $ppp ;
-
-        //Apply adjust page offset
-        $query->set('offset', $page_offset );
-
-    }
-    else {
-
-        //This is the first page. No offset
-        $query->set('offset',0);
-
-    }
-} // cryout_query_offset()
 endif;
+
+if ( 'posts' == get_option( 'show_on_front' )) add_action( 'template_redirect', 'cryout_ajax_init' );
 
 // FIN

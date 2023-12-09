@@ -17,27 +17,26 @@
 
 get_header(); ?>
 
-	<div id="container" class="<?php echo fluida_get_layout_class(); ?>">
-		<main id="main" role="main" <?php cryout_schema_microdata( 'main' ); ?> class="main">
+	<div id="container" class="<?php fluida_get_layout_class(); ?>">
+		<main id="main" class="main">
 			<?php cryout_before_content_hook(); ?>
-			
+
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header pad-container" <?php cryout_schema_microdata( 'element' ); ?>>
-          <?php
+					<?php
 						// Load custom header if author
 						if (is_author()) {
-							get_template_part( 'content/author-bio' );	
+							get_template_part( 'content/user-bio' );
 						// Default for all archives
-						} else { 
+						} else {
 							the_archive_title( '<h1 class="page-title" ' . cryout_schema_microdata('entry-title', 0) . '>', '</h1>' );
 							the_archive_description( '<div class="taxonomy-description">', '</div>' );
-              
-						} 
+						}
 					?>
 				</header><!-- .page-header -->
-			
-				<div id="content-masonry">
+
+				<div id="content-masonry" class="content-masonry" <?php cryout_schema_microdata( 'blog' ); ?>>
 					<?php
 					while ( have_posts() ) : the_post();
 					/*
@@ -58,7 +57,7 @@ get_header(); ?>
 
 			cryout_after_content_hook(); ?>
 		</main><!-- #main -->
-		
+
 		<?php fluida_get_sidebar(); ?>
 	</div><!-- #container -->
 

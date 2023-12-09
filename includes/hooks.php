@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Theme hooks
  *
  * @package Fluida
@@ -76,12 +76,10 @@ function cryout_breadcrumbs_hook() {
 
 // Master Footer hook
 function cryout_master_footer_hook() { ?>
-	<footer id="footer" role="contentinfo" <?php cryout_schema_microdata( 'footer' );?>>
 		<div id="footer-inside">
 			<?php do_action( 'cryout_master_footer_hook' ); ?>
 		</div> <!-- #footer-inside -->
-	</footer><!-- #footer -->
-<?php	
+<?php
 }
 
 
@@ -139,9 +137,29 @@ function cryout_post_meta_hook() {
     do_action( 'cryout_post_meta_hook' );
 }
 
-// Before the actual post content
-function cryout_post_before_content_hook() {
-    do_action( 'cryout_post_before_content_hook' );
+// Before the actual post content on blog pages (content.php)
+function cryout_before_inner_hook() {
+    do_action( 'cryout_before_inner_hook' );
+}
+
+// After the actual post content on blog pages (content.php)
+function cryout_after_inner_hook() {
+    do_action( 'cryout_after_inner_hook' );
+}
+
+// Before the actual post content on pages and posts (single.php and content-page.php)
+function cryout_singular_before_inner_hook() {
+    do_action( 'cryout_singular_before_inner_hook' );
+}
+
+// Before comments (single.php)
+function cryout_singular_before_comments_hook() {
+    do_action( 'cryout_singular_before_comments_hook' );
+}
+
+// After the actual post content on pages and posts (single.php and content-page.php)
+function cryout_singular_after_inner_hook() {
+    do_action( 'cryout_singular_after_inner_hook' );
 }
 
 // After the actual post content
@@ -156,7 +174,7 @@ function cryout_post_footer_hook() {
 
 /**
  * CONTENT HOOKS
-*/
+ */
 
 function cryout_before_content_hook() {
     do_action( 'cryout_before_content_hook' );
@@ -164,6 +182,18 @@ function cryout_before_content_hook() {
 
 function cryout_after_content_hook() {
     do_action( 'cryout_after_content_hook' );
+}
+
+function cryout_empty_page_hook() {
+    do_action( 'cryout_empty_page_hook' );
+}
+
+function cryout_absolute_top_hook() {
+    do_action( 'cryout_absolute_top_hook' );
+}
+
+function cryout_absolute_bottom_hook() {
+    do_action( 'cryout_absolute_bottom_hook' );
 }
 
 /* FIN */

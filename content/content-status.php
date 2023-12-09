@@ -7,7 +7,7 @@
  * @package Fluida
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); cryout_schema_microdata( 'article' );?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); cryout_schema_microdata( 'blogpost' );?>>
 	<?php cryout_featured_hook(); ?>
 
 	<div class="article-inner">
@@ -23,7 +23,7 @@
 
 		</header><!-- .entry-header -->
 
-		<?php cryout_post_before_content_hook();  ?>
+		<?php cryout_before_inner_hook();  ?>
 		<div class="entry-content"  <?php cryout_schema_microdata( 'entry-content' ); ?>>
 
 			<div class="avatar-container">
@@ -37,6 +37,6 @@
 		</div><!-- .entry-content -->
 
 
-		<?php cryout_post_after_content_hook();  ?>
+		<?php cryout_after_inner_hook();  ?>
 	</div><!-- .article-inner -->
 </article><!-- #post-<?php the_ID(); ?> -->
