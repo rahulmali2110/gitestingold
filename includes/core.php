@@ -5,187 +5,45 @@
  * @package Fluida
  */
 
-
- /**
-  * Calculates the correct content_width value depending on site with and configured layout
-  */
-if ( ! function_exists( 'fluida_content_width' ) ) :
-function fluida_content_width() {
-	global $content_width;
-	$deviation = 0.80;
-
-	$options = cryout_get_option( array(
-		'fluida_sitelayout', 'fluida_landingpage', 'fluida_magazinelayout', 'fluida_sitewidth', 'fluida_primarysidebar', 'fluida_secondarysidebar',
-		'fluida_lplayout',
-	) );
-
-	$content_width = 0.98 * (int)$options['fluida_sitewidth'];
-
-	if ( in_array( $options['fluida_sitelayout'], array( '2cSl', '3cSl', '3cSr', '3cSs' ) ) ) {	// primary sidebar
-		$content_width -= (int)$options['fluida_primarysidebar']; 
-	};
-	if ( in_array( $options['fluida_sitelayout'], array( '2cSr', '3cSl', '3cSr', '3cSs' ) ) ) {	// secondary sidebar
-		$content_width -= (int)$options['fluida_secondarysidebar'];
-	};
-
-	if ( is_front_page() && $options['fluida_landingpage'] ) {
-		// landing page could be a special case;
-		if ( $options['fluida_lplayout'] == 0 ) {
-			// wide
-			$width = ceil( (int)$options['fluida_sitewidth'] / apply_filters('fluida_lppostslayout_filter', (int)$options['fluida_magazinelayout']) );
-		} else {
-			// contained
-			$width = ceil( (int)$content_width / apply_filters('fluida_lppostslayout_filter', (int)$options['fluida_magazinelayout']) );
-		}
-		$content_width = ceil($width);
-		return;
-	}
-
-	if ( is_archive() ) {
-		switch ( $options['fluida_magazinelayout'] ):
-			case 2: $content_width = floor($content_width*0.98/2); break; // magazine-two
-			case 3: $content_width = floor($content_width*0.96/3); break; // magazine-three
-		endswitch;
-	};
-
-	$content_width = floor($content_width*$deviation);
-
-} // fluida_content_width()
-endif;
-
- /**
-  * Calculates the correct featured image width depending on site with and configured layout
-  * Used by fluida_setup()
-  */
-if ( ! function_exists( 'fluida_featured_width' ) ) :
-function fluida_featured_width() {
-
-	$options = cryout_get_option( array(
-		'fluida_sitelayout', 'fluida_landingpage', 'fluida_magazinelayout', 'fluida_sitewidth', 'fluida_primarysidebar', 'fluida_secondarysidebar',
-		'fluida_lplayout',
-	) );
-	
-	// layout needs to be filtered thorougly
-	$options['theme_sitelayout'] = cryout_get_layout( 'theme_sitelayout' );
-
-	$width = (int)$options['fluida_sitewidth'];
-
-	$deviation = 0.02 * $width; // content to sidebar(s) margin
-
-	if ( in_array( $options['fluida_sitelayout'], array( '2cSl', '3cSl', '3cSr', '3cSs' ) ) ) {	// primary sidebar
-		$width -= (int)$options['fluida_primarysidebar'] + $deviation;
-	};
-	if ( in_array( $options['fluida_sitelayout'], array( '2cSr', '3cSl', '3cSr', '3cSs' ) ) ) {	// secondary sidebar
-		$width -= (int)$options['fluida_secondarysidebar'] + $deviation;
-	};
-
-	if ( is_front_page() && $options['fluida_landingpage'] ) {
-		// landing page could be a special case;
-		if ( $options['fluida_lplayout'] == 0 ) {
-			// wide
-			$width = ceil( (int)$options['fluida_sitewidth'] / apply_filters('fluida_lppostslayout_filter', (int)$options['fluida_magazinelayout']) );
-		} else {
-			// contained
-			$width = ceil( (int)$width / apply_filters('fluida_lppostslayout_filter', (int)$options['fluida_magazinelayout']) );
-		}
-		return ceil($width);
-	}
-
-	if ( ! is_singular() ) {
-		switch ( $options['fluida_magazinelayout'] ):
-			case 2: $width = ceil($width*0.98/2); break; // magazine-two
-			case 3: $width = ceil($width*0.96/3); break; // magazine-three
-		endswitch;
-	};
-
-	return ceil($width);
-	// also used on images registration
-
-} // fluida_featured_width()
-endif;
-
-
- /**
-  * Check if a header image is being used
-  * Returns the URL of the image or FALSE
-  */
-if ( ! function_exists( 'fluida_header_image_url' ) ) :
-function fluida_header_image_url() {
-	$headerlimits = cryout_get_option( 'fluida_headerlimits' );
-	if ($headerlimits) $limit = 0.75; else $limit = 0;
-
-	$fluida_fheader = apply_filters( 'fluida_header_image', cryout_get_option( 'fluida_fheader' ) );
+/**
+ * Header image handler (via div with background image)
+ */
+add_action ( 'cryout_headerimage_hook', 'fluida_header_image', 99 );
+if ( ! function_exists( 'fluida_header_image' ) ) :
+function fluida_header_image() {
+	$limit = 0.75;
+	$fluida_fheader = cryout_get_option( 'fluida_fheader' );
 	$fluida_headerh = floor( cryout_get_option( 'fluida_headerheight' ) * $limit );
 	$fluida_headerw = floor( cryout_get_option( 'fluida_sitewidth' ) * $limit );
 
 	// Check if this is a post or page, if it has a thumbnail, and if it's a big one
-	$post_id = false; 
 	global $post;
-	if ( !empty( $post->ID ) ) $post_id = $post->ID;
-	
-	// Check if static frontpage (but not landing page)
-	if ( is_front_page() && ! is_home() && ! cryout_is_landingpage() ) {
-		$front_id = get_option( 'page_on_front' );
-		if ( !empty( $front_id ) ) $post_id = $front_id;
-	}
-	// Check if blog page
-	if ( cryout_on_blog() ) {
-		$blog_id = get_option( 'page_for_posts' );
-		if ( !empty( $blog_id ) ) $post_id = $blog_id;
-	}
-	
-	// WooCommerce gets separate handling for its non-page sections
-	$woo = false;
-	$woo_featured_in_header = apply_filters( 'fluida_featured_header_in_wc', true );
-	if ( $woo_featured_in_header && function_exists ( "is_woocommerce" ) && is_woocommerce() && ! is_singular() ) {
-		$shop_id = wc_get_page_id( 'shop' ); // myaccount, edit_address, shop, cart, checkout, pay, view_order, terms
-		if ( !empty( $shop_id ) ) {
-			$post_id = $shop_id;
-			$woo = true;
-		}
-	}
 
-	// default to general header image 
-	$header_image = FALSE;
 	if ( get_header_image() != '' ) { $header_image = get_header_image(); }
-	
-	if ( ( is_singular() || $woo || cryout_on_blog() ) && has_post_thumbnail( $post_id ) && $fluida_fheader &&
-		( $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'fluida-header' ) )
+	if ( is_singular() && has_post_thumbnail( $post->ID ) && $fluida_fheader &&
+		( $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'fluida-header' ) )
 		 ) :
 			if ( ( absint($image[1]) >= $fluida_headerw ) && ( absint($image[2]) >= $fluida_headerh ) ) {
 				// 'header' image is large enough
 				$header_image = $image[0];
 			} else {
 				// 'header' image too small, try 'full' image instead
-				$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 				if ( ( absint($image[1]) >= $fluida_headerw ) && ( absint($image[2]) >= $fluida_headerh ) ) {
 					// 'full' image is large enough
 					$header_image = $image[0];
+				} else {
+					// even 'full' image is too small, don't return an image
+					//$header_image = false;
 				}
-				// else: even 'full' image is too small, don't return an image
 			}
 	endif;
 
-	return apply_filters( 'fluida_header_image_url', $header_image );
-} //fluida_header_image_url()
-endif;
-
-/**
- * Header image handler
- * Both as normal img and background image
- */
-add_action ( 'cryout_headerimage_hook', 'fluida_header_image', 99 );
-if ( ! function_exists( 'fluida_header_image' ) ) :
-function fluida_header_image() {
-	if ( cryout_on_landingpage() && cryout_get_option('fluida_lpslider') != 3) return; // if on landing page and static slider not set to header image, exit.
-	$header_image = fluida_header_image_url();
-	if ( is_front_page() && function_exists( 'the_custom_header_markup' ) && has_header_video() ) {
-		the_custom_header_markup();
-	} elseif ( ! empty( $header_image ) ) { ?>
-			<div class="header-image" <?php cryout_echo_bgimage( esc_url( $header_image ) ) ?>></div>
-			<img class="header-image" alt="<?php if ( is_single() ) the_title_attribute(); elseif ( is_archive() ) echo esc_attr( get_the_archive_title() ); else echo esc_attr( get_bloginfo( 'name' ) ) ?>" src="<?php echo esc_url( $header_image ) ?>" />
+	if ( ! empty( $header_image ) ):?>
+			<div class="header-image" <?php echo cryout_echo_bgimage( esc_url( $header_image ) ) ?>></div>
+			<img class="header-image" alt="" src="<?php echo esc_url( $header_image ) ?>" />
 			<?php cryout_header_widget_hook(); ?>
-	<?php }
+	<?php endif;
 } // fluida_header_image()
 endif;
 
@@ -197,13 +55,13 @@ endif;
 if ( ! function_exists( 'fluida_title_and_description' ) ) :
 function fluida_title_and_description() {
 
-	$options = cryout_get_option( array( 'fluida_logoupload', 'fluida_siteheader' ) );
+	$fluids = cryout_get_option( array( 'fluida_logoupload', 'fluida_siteheader' ) );
 
-	if ( in_array( $options['fluida_siteheader'], array( 'logo', 'both' ) ) ) {
-		fluida_logo_helper( $options['fluida_logoupload'] );
+	if ( in_array( $fluids['fluida_siteheader'], array( 'logo', 'both' ) ) ) {
+		echo fluida_logo_helper( $fluids['fluida_logoupload'] );
 	}
-	if ( in_array( $options['fluida_siteheader'], array( 'title', 'both', 'logo', 'empty' ) ) ) {
-		$heading_tag = ( is_front_page() || ( is_home() ) ) ? 'h1' : 'div';
+	if ( in_array( $fluids['fluida_siteheader'], array( 'title', 'both' ) ) ) {
+		$heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div';
 		echo '<div id="site-text">';
 		echo '<' . $heading_tag . cryout_schema_microdata( 'site-title', 0 ) . ' id="site-title">';
 		echo '<span> <a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'description' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name' ) ) . '</a> </span>';
@@ -218,39 +76,27 @@ add_action ( 'cryout_branding_hook', 'fluida_title_and_description' );
 function fluida_logo_helper( $fluida_logo ) {
 	if ( function_exists( 'the_custom_logo' ) ) {
 		// WP 4.5+
-		$wp_logo = str_replace( 'class="custom-logo-link"', 'id="logo" class="custom-logo-link" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '"', get_custom_logo() );
-		if ( ! empty( $wp_logo ) ) echo '<div class="identity">' . $wp_logo . '</div>';
+		$wp_logo = str_replace( 'class="custom-logo-link"', 'id="logo" class="custom-logo-link" alt="'.esc_attr( get_bloginfo( 'name', 'display' ) ).'" title="'.esc_attr( get_bloginfo( 'name', 'display' ) ).'"', get_custom_logo() );
+		if ( ! empty( $wp_logo ) ) return '<div class="identity">' . $wp_logo . '</div>';
 	} else {
 		// older WP
 		if ( ! empty( $fluida_logo ) ) :
 			$img = wp_get_attachment_image_src( $fluida_logo, 'full' );
-			echo '<div class="identity">
-						<a id="logo" href="' . esc_url( home_url( '/' ) ) . '" >
-							<img title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" src="' . esc_url( $img[0] ) . '" />
-						</a>
-					</div>';
+			return '<div class="identity"><a id="logo" href="' . esc_url( home_url( '/' ) ) . '" ><img title="'.esc_attr( get_bloginfo( 'name', 'display' ) ).'" alt="'.esc_attr( get_bloginfo( 'name', 'display' ) ).'" src="' . esc_url( $img[0] ) . '" /></a></div>';
 		endif;
 	}
-	echo '';
+	return '';
 } // fluida_logo_helper()
 
-// cryout_schema_publisher() located in cryout/prototypes.php
-add_action( 'cryout_after_inner_hook', 'cryout_schema_publisher' );
-add_action( 'cryout_singular_after_inner_hook', 'cryout_schema_publisher' );
-
-// cryout_schema_main() located in cryout/prototypes.php
-add_action( 'cryout_after_inner_hook', 'cryout_schema_main' );
-add_action( 'cryout_singular_after_inner_hook', 'cryout_schema_main' );
-
-// cryout_skiplink() located in cryout/prototypes.php
-add_action( 'wp_body_open', 'cryout_skiplink', 2 );
-
 /**
- * Back to top button
+ * Fluida back to top button
+ * Creates div for js
 */
+if ( ! function_exists( 'fluida_back_top' ) ) :
 function fluida_back_top() {
-	echo '<a id="toTop"><span class="screen-reader-text">' . __('Back to Top', 'fluida') . '</span><i class="icon-back2top"></i> </a>';
+	echo '<div id="toTop"><i class="icon-back2top"></i> </div>';
 } // fluida_back_top()
+endif;
 add_action ( 'cryout_footer_hook', 'fluida_back_top' );
 
 
@@ -262,8 +108,8 @@ function fluida_pagination( $pages = '', $range = 2, $prefix ='' ) {
 	$pagination = cryout_get_option( 'fluida_pagination' );
 	if ( $pagination && function_exists( 'the_posts_pagination' ) ):
 		the_posts_pagination( array(
-			'prev_text' => '<i class="icon-angle-left"></i>',
-			'next_text' => '<i class="icon-angle-right"></i>',
+			'prev_text' => '<i class="icon-left-dir"></i>',
+			'next_text' => '<i class="icon-right-dir"></i>',
 			'mid_size' => $range
 		) );
 	else:
@@ -275,7 +121,7 @@ function fluida_pagination( $pages = '', $range = 2, $prefix ='' ) {
 endif;
 
 /**
- * Prev/Next page links
+ *
  */
 if ( ! function_exists( 'fluida_nextpage_links' ) ) :
 function fluida_nextpage_links( $defaults ) {
@@ -295,13 +141,13 @@ add_filter( 'wp_link_pages_args', 'fluida_nextpage_links' );
  */
 add_action( 'cryout_master_footer_hook', 'fluida_master_footer' );
 function fluida_master_footer() {
-	$the_theme = wp_get_theme();
+	$fluida_theme = wp_get_theme();
 	do_action( 'cryout_footer_hook' );
-	echo '<div id="site-copyright">' . do_shortcode( wp_kses_post( cryout_get_option( 'fluida_copyright' ) ) ) . '</div>';
+	echo '<div id="site-copyright">' . wp_kses_post( cryout_get_option( 'fluida_copyright' ) ) . '</div>';
 	echo '<div style="display:block;float:right;clear: right;font-size: .9em;">' . __( "Powered by", "fluida" ) .
-		'<a target="_blank" href="' . esc_html( $the_theme->get( 'ThemeURI' ) ) . '" title="';
+		'<a target="_blank" href="' . esc_html( $fluida_theme->get( 'ThemeURI' ) ) . '" title="';
 	echo 'Fluida WordPress Theme by ' . 'Cryout Creations"> ' . 'Fluida' .'</a> &amp; <a target="_blank" href="' . "http://wordpress.org/";
-	echo '" title="' . esc_attr__( "Semantic Personal Publishing Platform", "fluida") . '"> ' . sprintf( " %s.", "WordPress" ) . '</a></div>';
+	echo '" title="' . __( "Semantic Personal Publishing Platform", "fluida") . '"> ' . sprintf( " %s.", "WordPress" ) . '</a></div>';
 }
 
 /*
@@ -309,10 +155,9 @@ function fluida_master_footer() {
 */
 if ( ! function_exists( 'fluida_get_sidebar' ) ) :
 function fluida_get_sidebar() {
+	$fluida_sitelayout = cryout_get_option( 'fluida_sitelayout' );
+	switch($fluida_sitelayout) {
 
-	$layout = cryout_get_layout();
-
-	switch( $layout ) {
 		case '2cSl':
 			get_sidebar( 'left' );
 		break;
@@ -336,56 +181,56 @@ endif;
  * General layout class
  */
 if ( ! function_exists( 'fluida_get_layout_class' ) ) :
-function fluida_get_layout_class( $echo = true ) {
+function fluida_get_layout_class() {
+	$fluida_sitelayout = cryout_get_option( 'fluida_sitelayout' );
 
-	$layout = cryout_get_layout();
+	/*  If page template, return the page template's layout */
+	global $fluida_template_layout;
+	if ( isset( $fluida_template_layout ) ) return $fluida_template_layout;
 
 	/*  If not, return the general layout */
-	switch( $layout ) {
-		case '2cSl': $class = "two-columns-left"; break;
-		case '2cSr': $class = "two-columns-right"; break;
-		case '3cSl': $class = "three-columns-left"; break;
-		case '3cSr' : $class = "three-columns-right"; break;
-		case '3cSs' : $class = "three-columns-sided"; break;
+	switch( $fluida_sitelayout ) {
+		case '2cSl': return "two-columns-left"; break;
+		case '2cSr': return "two-columns-right"; break;
+		case '3cSl': return "three-columns-left"; break;
+		case '3cSr' : return "three-columns-right"; break;
+		case '3cSs' : return "three-columns-sided"; break;
 		case '1c':
-		default: $class = "one-column"; break;
-	}
-
-	// allow the generated layout class to be filtered
-	$output = esc_attr( apply_filters( 'fluida_general_layout_class', $class, $layout ) );
-
-	if ( $echo ) {
-		echo $output;
-	} else {
-		return $output;
+		default: return "one-column"; break;
 	}
 } // fluida_get_layout_class()
 endif;
 
 /**
 * Checks the browser agent string for mobile ids and adds "mobile" class to body if true
+* @return array list of classes.
 */
-add_filter( 'body_class', 'cryout_mobile_body_class');
+function fluida_mobile_body_class( $classes ){
+	$browser = ( ! empty( $_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '');
+	$keys = 'mobile|android|mobi|tablet|ipad|opera mini|series 60|s60|blackberry';
+	if ( preg_match( "/($keys)/i", $browser ) ) : $classes[] = 'mobile'; endif; // mobile browser detected
+	return $classes;
+} // fluida_mobile_body_class()
+add_filter( 'body_class', 'fluida_mobile_body_class');
 
 
 /**
 * Creates breadcrumbs with page sublevels and category sublevels.
 * Hooked in master hook
 */
-if ( ! function_exists( 'fluida_breadcrumbs' ) ) :
 function fluida_breadcrumbs() {
 	cryout_breadcrumbs(
 		'<i class="icon-angle-right"></i>',						// $separator
-		'<i class="blicon-home2"></i>', 						// $home
+		'<i class="icon-homebread"></i>', 						// $home
 		1,														// $showCurrent
 		'<span class="current">', 								// $before
 		'</span>', 												// $after
-		'<div id="breadcrumbs-container" class="cryout %1$s"><div id="breadcrumbs-container-inside"><div id="breadcrumbs"> <nav id="breadcrumbs-nav" %2$s>', // $wrapper_pre
+		'<div id="breadcrumbs-container" class="%1$s"><div id="breadcrumbs-container-inside"><div id="breadcrumbs"> <nav id="breadcrumbs-nav" %2$s>', // $wrapper_pre
 		'</nav></div></div></div><!-- breadcrumbs -->', 		// $wrapper_post
-		fluida_get_layout_class(false),							// $layout_class
+		fluida_get_layout_class(),								// $layout_class
 		__( 'Home', 'fluida' ),									// $text_home
-		__( 'Archive for category "%s"', 'fluida' ),					// $text_archive
-		__( 'Search results for "%s"', 'fluida' ), 					// $text_search
+		__( 'Archive for category', 'fluida' ),					// $text_archive
+		__( 'Search results for', 'fluida' ), 					// $text_search
 		__( 'Posts tagged', 'fluida' ), 						// $text_tag
 		__( 'Articles posted by', 'fluida' ), 					// $text_author
 		__( 'Not Found', 'fluida' ),							// $text_404
@@ -393,7 +238,6 @@ function fluida_breadcrumbs() {
 		__( 'Page', 'fluida' )									// $text_page
 	);
 } // fluida_breadcrumbs()
-endif;
 
 
 /**
@@ -405,9 +249,7 @@ function cryout_search_menu( $items, $args ) {
 $options = cryout_get_option( array( 'fluida_searchboxmain', 'fluida_searchboxfooter' ) );
 	if( $args->theme_location == 'primary' && $options['fluida_searchboxmain'] ) {
 		$container_class = 'menu-main-search';
-		$items .= "<li class='" . $container_class . " menu-search-animated'>
-			<a role='link' href><i class='search-icon'></i><span class='screen-reader-text'>" . __('Search', 'fluida') . "</span></a>" . get_search_form( false ) . "
-		</li>";
+		$items .= "<li class='" . $container_class . " menu-search-animated'><i class='search-icon'></i>" . get_search_form( false ) . " </li>";
 	}
 	if( $args->theme_location == 'footer' && $options['fluida_searchboxfooter'] ) {
 		$container_class = 'menu-footer-search';
@@ -419,10 +261,12 @@ endif;
 
 /* cryout_schema_microdata() moved to framework in 0.9.9/0.5.6 */
 
-/**
- * Normalizes tags widget font when needed
- */
-if ( TRUE === cryout_get_option( 'fluida_normalizetags' ) ) add_filter( 'wp_generate_tag_cloud', 'cryout_normalizetags' );
+/* Normalizes tags widget font when needed */
+function fluida_normalizetags( $tags_html ) {
+	$fluida_normalizetags = cryout_get_option( 'fluida_normalizetags' );
+	if ( $fluida_normalizetags ) return preg_replace( '/font-size:.*?;/i', '', $tags_html ); else return $tags_html;
+};
+add_filter( 'wp_generate_tag_cloud', 'fluida_normalizetags' );
 
 
 /**
@@ -451,56 +295,5 @@ function fluida_master_hook() {
 };
 endif;
 add_action( 'wp', 'fluida_master_hook' );
-
-
-// Boxes image size
-function fluida_lpbox_width( $options = array() ) {
-
-	if ( $options['fluida_lpboxlayout1'] == 1 ) { $totalwidth = $options['fluida_sitewidth']; }
-	else { $totalwidth = $options['fluida_sitewidth'] - $options['fluida_primarysidebar'] - $options['fluida_secondarysidebar']; }
-	$options['fluida_lpboxwidth1'] = intval ( $totalwidth / $options['fluida_lpboxrow1'] );
-
-	if ( $options['fluida_lpboxlayout2'] == 1 ) { $totalwidth = $options['fluida_sitewidth']; }
-	else { $totalwidth = $options['fluida_sitewidth'] - $options['fluida_primarysidebar'] - $options['fluida_secondarysidebar']; }
-	$options['fluida_lpboxwidth2'] = intval ( $totalwidth / $options['fluida_lpboxrow2'] );
-
-	return $options;
-} // fluida_lpbox_width()
-
-// Used for the landing page blocks auto excerpts
-function fluida_custom_excerpt( $text = '', $length = 35, $more = '...' ) {
-	$raw_excerpt = $text;
-
-	//handle the <!--more--> and <!--nextpage--> tags
-	$moretag = false;
-	if (strpos( $text, '<!--nextpage-->' )) $explodemore = explode('<!--nextpage-->', $text);
-	if (strpos( $text, '<!--more-->' )) $explodemore = explode('<!--more-->', $text);
-	if (!empty($explodemore[1])) {
-		// tag was found
-		$text = $explodemore[0];
-		$moretag = true;
-	}
-
-	if ( '' != $text ) {
-		$text = strip_shortcodes( $text );
-
-		$text = str_replace(']]>', ']]&gt;', $text);
-
-		// Filters the number of words in an excerpt. Default 35.
-		$excerpt_length = apply_filters( 'fluida_custom_excerpt_length', $length );
-
-		if ($excerpt_length == 0) return '';
-
-		// Filters the string in the "more" link displayed after a trimmed excerpt.
-		$excerpt_more = apply_filters( 'fluida_custom_excerpt_more', $more );
-		if (!$moretag) {
-			$text = wp_trim_words( $text, $excerpt_length, $excerpt_more );
-		}
-	}
-	return apply_filters( 'fluida_custom_excerpt', $text, $raw_excerpt );
-} // fluida_custom_excerpt()
-
-// ajax load more button alternative hook
-add_action( 'template_redirect', 'cryout_ajax_init' );
 
 /* FIN */

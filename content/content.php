@@ -5,13 +5,13 @@
  * @package Fluida
  */
 
-$fluidas = cryout_get_option( array( 'fluida_excerptarchive', 'fluida_excerptsticky', 'fluida_excerpthome' ) );
+$fluids = cryout_get_option( array( 'fluida_excerptarchive', 'fluida_excerptsticky', 'fluida_excerpthome' ) );
 
 ?><?php cryout_before_article_hook(); ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'hentry' ); cryout_schema_microdata( 'blogpost' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); cryout_schema_microdata( 'article' ); ?>>
 
-	<?php if ( false == get_post_format() ) { cryout_featured_hook(); } ?>
+	<?php cryout_featured_hook(); ?>
 	<div class="article-inner">
 		<header class="entry-header">
 			<?php cryout_post_title_hook(); ?>
@@ -25,15 +25,15 @@ $fluidas = cryout_get_option( array( 'fluida_excerptarchive', 'fluida_excerptsti
 
 		</header><!-- .entry-header -->
 
-		<?php cryout_before_inner_hook();
+		<?php cryout_post_before_content_hook();
 
-		$fluida_excerpt_mode = 'excerpt'; // default
-		if ( $fluidas['fluida_excerptarchive'] == "full" ) { $fluida_excerpt_mode = 'content'; }
-		if ( is_sticky() && $fluidas['fluida_excerptsticky'] == "full" ) { $fluida_excerpt_mode = 'content'; }
-		if ( $fluidas['fluida_excerpthome'] == "full" && ! is_archive() && ! is_search() ) { $fluida_excerpt_mode = 'content'; }
-		if ( false != get_post_format() ) { $fluida_excerpt_mode = 'content'; }
+		$mode = 'excerpt'; // default
+		if ( $fluids['fluida_excerptarchive'] == "full" ) { $mode = 'content'; }
+		if ( is_sticky() && $fluids['fluida_excerptsticky'] == "full" ) { $mode = 'content'; }
+		if ( $fluids['fluida_excerpthome'] == "full" && ! is_archive() && ! is_search() ) { $mode = 'content'; }
+		if ( false != get_post_format() ) { $mode = 'content'; }
 
-		switch ( $fluida_excerpt_mode ) {
+		switch ( $mode ) {
 			case 'content': ?>
 
 				<div class="entry-content" <?php cryout_schema_microdata( 'entry-content' ); ?>>
@@ -56,7 +56,7 @@ $fluidas = cryout_get_option( array( 'fluida_excerptarchive', 'fluida_excerptsti
 			<?php break;
 		}; ?>
 
-		<?php cryout_after_inner_hook();  ?>
+		<?php cryout_post_after_content_hook();  ?>
 	</div><!-- .article-inner -->
 </article><!-- #post-<?php the_ID(); ?> -->
 
