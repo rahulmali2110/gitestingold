@@ -1,7 +1,6 @@
 /*
- * RTL CSS
- *
- * @package Fluida
+ * Theme Name: Fluida
+ * Styling for RTL languages
  */
 
 /*--------------------------------------------------------------
@@ -11,6 +10,12 @@
 .main li li {
 	margin-right: 1em;
 	margin-left: 0;
+}
+
+/* Text meant only for screen readers */
+.screen-reader-text {
+	position: absolute;
+	left: 9000px;
 }
 
 /*--------------------------------------------------------------
@@ -31,9 +36,7 @@ body {
 	# HEADER
 --------------------------------------------------------------*/
 
-.cryout #branding {
-	margin-right: 0;
-	margin-left: 3em;
+#branding {
 	float: right;
 }
 
@@ -45,18 +48,12 @@ body {
 	float: right;
 }
 
-#branding .identity + #site-text {
-	margin-left: 0;
+#branding .identity + #site-title {
 	margin-right: 1em;
 }
 
 #site-title span a span:first-child {
 	margin-left: .1em;
-}
-
-#site-description {
-	clear: right;
-	float: right;
 }
 
 /* Header widget area */
@@ -120,20 +117,9 @@ body {
 	border-left: 0;
 }
 
-nav#mobile-menu ul li {
-	text-align: right;
-}
-
 #mobile-menu .mobile-arrow::after {
 	right: auto;
 	left: 0;
-}
-
-
-
-.dropdown-toggle {
-	margin-right: 0;
-	margin-left: -1em;
 }
 
 /*--------------------------------------------------------------
@@ -142,11 +128,11 @@ nav#mobile-menu ul li {
 
 #nav-toggle { /* Mobile nav toggle will only be visible on mobile */
 	float: left;
-	left: 0;
+	left: 1em;
 	right: auto;
 }
 
-nav#mobile-menu #nav-cancel {
+#mobile-nav #nav-cancel {
 	left: 0;
 	right: auto;
 }
@@ -211,13 +197,21 @@ nav#mobile-menu #nav-cancel {
 --------------------------------------------------------------*/
 
 .entry-meta span,
-.entry-utility span {
+.entry-utility span,
+.entry-meta time,
+.comment-meta a {
 	float: right;
 	margin-left: 1em;
 	margin-right: 0;
 }
 
-.entry-meta span a {
+.entry-meta .author em {
+	float: right;
+	margin-left: .5em;
+
+}
+
+.entry-meta span a{
 	padding-left: 0;
 	padding-right: .2em;
 }
@@ -225,6 +219,10 @@ nav#mobile-menu #nav-cancel {
 .icon-metas:before {
 	margin-right: 0;
 	margin-left: .5em
+}
+
+.comments-link {
+	float: left;
 }
 
 .tag-links {
@@ -245,8 +243,8 @@ span.edit-link {
 	transform: rotate(180deg);
 }
 
-i.icon-angle-right:before,
-i.icon-angle-left:before {
+i.icon-right-dir:before,
+i.icon-left-dir:before {
 	-webkit-transform: rotate(180deg);
 	-moz-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
@@ -288,6 +286,7 @@ article.sticky:after {
 
 
 .fluida-magazine-two #content-masonry article.hentry {
+	width: 48%;
 	float: right;
 }
 
@@ -475,6 +474,10 @@ nav.sidebarmenu li a:hover {
 	left: 0;
 }
 
+#access li.menu-main-search {
+	float: left;
+}
+
 #access > .menu > ul ul > li a:not(:only-child) span::after {
 	-webkit-transform: rotate(90deg);
 	-moz-transform: rotate(90deg);
@@ -502,24 +505,6 @@ nav.sidebarmenu li a:hover {
 }
 
 /*--------------------------------------------------------------
-	# LANDING PAGE
---------------------------------------------------------------*/
-
-.lp-boxes-animated .lp-box .lp-box-readmore > i:before {
-	left: auto;
-	right: -5px;
-}
-
-.lp-boxes-animated .lp-box:hover .lp-box-readmore > i:before {
-	right: auto;
-	right: 0;
-}
-
-#cryout_ajax_more_trigger > span::before {
-	margin: auto auto auto 1em;
-}
-
-/*--------------------------------------------------------------
 	# MISCELLANEOUS
 --------------------------------------------------------------*/
 
@@ -535,19 +520,8 @@ nav.sidebarmenu li a:hover {
 	margin-left: 1px;
 	margin-right: 0;
 }
-
 a.continue-reading-link {
 	float: right;
-}
-
-a.continue-reading-link:before {
-	left: auto;
-	right: 0;
-}
-
-a.continue-reading-link:hover:before {
-	left: auto;
-	right: 100%;
 }
 
 .continue-reading-link span:after {
@@ -555,14 +529,14 @@ a.continue-reading-link:hover:before {
 	left: -1.5em;
 }
 
-a.continue-reading-link i.icon-angle-right {
+a.continue-reading-link i.icon-right-dir {
 	left: auto;
 	right: 0;
 	margin-left: 0;
 	margin-right: .5em;
 }
 
-a.continue-reading-link:hover i.icon-angle-right {
+a.continue-reading-link:hover i.icon-right-dir {
 	right: 2em;
 	left: auto;
 }
@@ -575,17 +549,6 @@ a.continue-reading-link:hover i.icon-angle-right {
 .entry-content blockquote:after {
 	right: auto;
 	left: 0;
-}
-
-/* LP RESPONSIVENESS */
-
-@media (max-width: 720px) {
-	.lp-staticslider .lp-staticslider-image {
-		left: auto;
-		right: 50%;
-		-webkit-transform: translateX(50%);
-		transform: translateX(50%);
-	}
 }
 
 /* RESPONSIVE */

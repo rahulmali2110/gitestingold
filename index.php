@@ -10,14 +10,16 @@
  * @package Fluida
  */
 get_header();
+// if is_page() -> additional check in page.php
 ?>
-<div id="container" class="<?php fluida_get_layout_class(); ?>">
-	<main id="main" class="main">
+
+<div id="container" class="<?php echo fluida_get_layout_class(); ?>">
+	<main id="main" role="main" <?php cryout_schema_microdata( 'main' ); ?> class="main">
 		<?php cryout_before_content_hook(); ?>
 
 		<?php if ( have_posts() ) : ?>
 
-			<div id="content-masonry" class="content-masonry" <?php cryout_schema_microdata( 'blog' ); ?>>
+			<div id="content-masonry">
 				<?php /* Start the Loop */
 				while ( have_posts() ) : the_post();
 					get_template_part( 'content/content', get_post_format() );
